@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1920" height="583" viewBox="0 0 1920 583">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_223" data-name="Rectangle 223" width="1920" height="583" transform="translate(0 6897)" fill="#fff" stroke="#707070" stroke-width="1"/>
+    </clipPath>
+    <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#ffc72c"/>
+      <stop offset="1" stop-color="#ffc72c" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient-2" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#08d1ff"/>
+      <stop offset="1" stop-color="#08d1ff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <g id="bottom-bg" transform="translate(0 -6897)" clip-path="url(#clip-path)">
+    <rect id="Rectangle_217" data-name="Rectangle 217" width="1920" height="424" transform="matrix(0.995, -0.105, 0.105, 0.995, 470, 7341.695)" opacity="0.162" fill="url(#radial-gradient)"/>
+    <rect id="Rectangle_218" data-name="Rectangle 218" width="1670" height="388" transform="translate(-650 7333)" opacity="0.096" fill="url(#radial-gradient-2)"/>
+  </g>
+</svg>

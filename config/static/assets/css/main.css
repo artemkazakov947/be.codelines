@@ -1,0 +1,11 @@
+/*reset.css*/
+@import url('thirdparty/reset.css');
+
+/*slick slider styles*/
+@import url('thirdparty/slick.css');
+
+/*aos styles*/
+@import url('thirdparty/aos.css');
+
+/*main template file (should be last in list)*/
+@import url('template.css');
