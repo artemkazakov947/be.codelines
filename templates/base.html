@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta name='robots' content='noindex, nofollow' />
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>{% block title %}{% endblock %}</title>
+        <meta name="description" content="">
+        <!--font, css, js -->
+        {% include "includes/head.html" %}
+    </head>
+
+        <body>
+            <div class= "wrapper {% block page_wrapper %}{% endblock %}">
+                <header id="header-menu">
+                    {% include "includes/header-menu.html" %}
+                </header>
+                <main>
+                    {% block content %}{% endblock %}
+                    {% block pagination %}{% endblock %}
+                    {% block contact_section %}{% endblock %}
+                </main>
+                <footer id="footer-page">
+                    {% include "includes/footer.html" %}
+                </footer>
+            </div>
+        </body>
+</html>
