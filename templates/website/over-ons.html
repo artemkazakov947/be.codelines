@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Over ons{% endblock %}
+{% block content %}
+    <section class="header-page-title-only">
+                <div class="container">
+                    <div class="header-page-title-only__inner --text-center">
+                        <h2 class="subtitle">Onze diensten</h2>
+                        <h1>Hoe wij digitale optimalisatie realiseren</h1>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-element ce-img-content --ce-img-left">
+                <div class="ce__inner container --grid">
+                    <div class="ce__img" data-aos="fade-up" data-aos-duration="500">
+                        <img src="/config/static/images/over-ons-img.jpg" alt="">
+                    </div>
+                    <div class="ce__content" data-aos="fade-up" data-aos-duration="500">
+                        <div class="ce__title">
+                            <h2>Coded with love</h2>
+                        </div>
+                        <div class="ce__desc --content">
+                            <p>Codelines is een digitaal development agency dat gespecialiseerd is in het optimaliseren en ontwikkelen van software. Met ons team van ervaren ontwikkelaars, designers en projectmanagers streven wij ernaar om onze klanten te voorzien van hoogwaardige software oplossingen die hen helpen hun doelen te bereiken.</p>
+                            <p>Onze aanpak is gebaseerd op samenwerking en transparantie. We werken nauw samen met onze klanten om hun behoeften en doelen te begrijpen, en gebruiken deze inzichten om op maat gemaakte oplossingen te creëren die precies passen bij hun bedrijf.</p>
+                            <p>Of het nu gaat om het ontwikkelen van een nieuwe applicatie, het optimaliseren van een bestaande website of het integreren van nieuwe technologieën, bij Codelines streven we naar uitmuntendheid in alles wat we doen. We zijn trots op ons vermogen om kwaliteitswerk te leveren, op tijd en binnen budget.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="team bg-ellipse8">
+                <div class="container">
+                    <div class="team__header">
+                        <h3 class="subtitle" data-aos="fade-up" data-aos-duration="500">Ons team</h3>
+                        <h2 data-aos="fade-up" data-aos-duration="500">Leer ons kennen</h2>
+                    </div>
+                    <div class="team__list">
+
+                        {% for employee in employee_list %}
+
+                            <div class="team__member" data-aos="fade-up" data-aos-duration="500" data-aos-delay="300">
+                                <div class="team__member-img">
+                                    <img src="{{ employee.foto.url }}">
+                                </div>
+                                <div class="team__member-info">
+                                    <div class="team__member-name like-h3">{{ employee.first_name }} {{ employee.last_name }}</div>
+                                    <div class="team__member-position">{{ employee.role }}</div>
+                                </div>
+                            </div>
+
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+
+            <section class="cta bg-bottom" data-aos="fade-up" data-aos-duration="500">
+                <div class="container">
+                    <div class="cta__inner">
+                        <div class="cta__title">
+                            <h2>Wil jij met ons samenwerken?</h2>
+                        </div>
+                        <a href="/jobs.php" class="btn --btn-yellow">bekijk onze vacatures</a>
+                    </div>
+                </div>
+            </section>
+{% endblock %}
