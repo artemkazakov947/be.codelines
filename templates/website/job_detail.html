@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Job detail{% endblock %}
+{% block content %}
+    <article class="jobs-item bg-bottom">
+                <div class="container">
+                    <div class="jobs-item__inner">
+                        <header class="jobs-item__header">
+                            <h2 class="subtitle">Open vacature</h2>
+                            <h1>{{ job.name }}</h1>
+                        </header>
+                        <section class="jobs-item__body article-body --content js-article-body">
+                            <p>Codelines ontwerpt, ontwikkelt en implementeert straffe digitale oplossingen. Met in totaal +30 jaar ervaring, werken we voor zowel gevestigde bedrijven als ambitieuze start-ups. Bij Codelines voorzien we de nodige begeleiding om samen te blijven groeien. Het hecht team van 8 collega’s staat centraal in de organisatie en is dé motor van het bedrijf. Op regelmatige basis voorzien we daarom bijscholingen, trainingen en (“beruchte”) team-buildings.</p>
+                            <h6>De job</h6>
+                            <p>{{ job.description }}</p>
+                            <h6>Wat we verwachten</h6>
+                            <ul>
+                                {% for skill in job.skill.all %}
+                                    <li>{{ skill }}</li>
+                                {% endfor %}
+                            </ul>
+                            <p>Interesse in deze vacature en ben jij de {{ job.name }} die we zoeken, stuur dan je CV en motivatieboodschap door aan <a href="mailto:jasper@codelines.be">jasper@codelines.be</a>.</p>
+                            <p>We kijken er alvast naar uit om elkaar te ontmoeten!</p>
+                        </section>
+                        <footer class="jobs-item__footer">
+                            <div class="btn-block">
+                                <a href="{% url 'website:job-list' %}" class="btn --btn-yellow">bekijk alle vacatures</a>
+                                <a href="{% url 'website:over-ons' %}" class="btn --btn-yellow-transparent">ontdek wie we zijn</a>
+                            </div>
+                        </footer>
+                    </div>
+                </div>
+            </article>
+{% endblock %}
