@@ -2,6 +2,7 @@ import os
 
 from django.db import models
 from django.urls import reverse_lazy
+from taggit.managers import TaggableManager
 
 
 def team_foto_file_path(instance, filename: str):
@@ -55,6 +56,7 @@ class Post(models.Model):
     content = models.TextField()
     created = models.DateField(auto_now_add=True)
     time_to_read = models.IntegerField()
+    tag = TaggableManager()
 
     def __str__(self):
         return self.title
