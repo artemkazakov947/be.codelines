@@ -1,6 +1,7 @@
 import os
 
 from django.db import models
+from django.urls import reverse_lazy
 
 
 def team_foto_file_path(instance, filename: str):
@@ -28,3 +29,38 @@ class Employee(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} ({self.role.name})"
+
+
+class Skill(models.Model):
+    name = models.TextField()
+
+    def __str__(self):
+        return self.name
+
+
+class Job(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    skill = models.ManyToManyField(Skill, related_name="jobs")
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse_lazy("website:job-detail", kwargs={"pk": self.pk})
+
+
+class Post(models.Model):
+    title = models.CharField(max_length=255)
+    content = models.TextField()
+    created = models.DateField(auto_now_add=True)
+    time_to_read = models.IntegerField()
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ["-created"]
+
+
+
