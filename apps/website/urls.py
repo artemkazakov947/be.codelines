@@ -5,6 +5,7 @@ from apps.website.views import (
     OverOnsView,
     JobListView,
     JobDetailView,
+    PostListView,
 )
 
 urlpatterns = [
@@ -12,5 +13,6 @@ urlpatterns = [
     path("over-ons/", OverOnsView.as_view(), name="over-ons"),
     path("jobs/", JobListView.as_view(), name="job-list"),
     path("jobs/<int:pk>/", JobDetailView.as_view(), name="job-detail"),
+    path("blog/", PostListView.as_view(), name="post-list")
 ]
 app_name = "website"
