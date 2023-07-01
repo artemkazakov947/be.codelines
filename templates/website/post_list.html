@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block title %}Blog{% endblock %}
+{% block content %}
+    <section class="blog-highlight">
+                <div class="container">
+                    <div class="blog-highlight__header">
+                        <h1 class="subtitle">Onze blog</h1>
+                    </div>
+                    <div class="blog-highlight__list">
+                        {% for post in post_list|slice:":3" %}
+                            <a href="blog-article.php" class="blog-highlight__item blog-card">
+                                <div class="blog-highlight__item-img">
+                                    <img src="/config/static/images/blog-highlight__item-img.jpg" alt="">
+                                </div>
+                                <div class="blog-highlight__item-content">
+                                    <div class="blog-highlight__item-title">
+                                        <h3 class="like-h2 decoration-hover">{{ post.title}}</h3>
+                                    </div>
+                                    <div class="blog-highlight__item-info">
+                                        <div class="blog-card__cat-list">
+                                            {% for tag in post.tag.all %}
+                                                <div class="blog-card__cat-item">{{ tag }}</div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="blog-card__date">{{ post.created }} • {{ post.time_to_read }} min leestijd</div>
+                                    </div>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+
+            <section class="subscribe">
+                <div class="container">
+                    <div class="subscribe__inner bg-ellipse9">
+                        <div class="subscribe__header">
+                            <h2>Wil jij op de hoogte blijven van al onze digitaal gerelateerde artikels?</h2>
+                        </div>
+                        <div class="subscribe__form">
+                            <form action="" method="">
+                                <div class="form-row">
+                                    <label for="subscribe-mail">Ja! Schrijf mij in op</label>
+                                    <div class="form-row__field form-row__mail">
+                                        <input type="email" name="E-mailadres" placeholder="e-mailadres" required="" id="subscribe-mail">
+                                    </div>
+                                    <span class="dot">.</span>
+                                    <button type=" submit" aria-label="submit" class="btn --btn-arrow"></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+            </section>
+
+            <section class="blog-overview">
+                <div class="container">
+                    <ul class="blog-overview__filter">
+                        <li><a href="{% url 'website:post-list' %}">Alles</a></li>
+                        {% for tag in tags %}
+                            <li><a href="{% url 'website:post-list' %}?tags={{ tag.name }}">{{ tag.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                    <div class="blog-overview__list">
+                        {% for post in post_list %}
+                            <a href="blog-article.php" class="blog-overview__item blog-card">
+
+                            <div class="blog-card__cat-list">
+                               {% for tag in post.tag.all %}
+                                    <div class="blog-card__cat-item">{{ tag }}</div>
+                               {% endfor %}
+                            </div>
+                            <div class="blog-overview__item-title">
+                                <h3 class="like-h4 decoration-hover">{{ post.title }}</h3>
+                            </div>
+                                <div class="blog-card__date">{{ post.created }} • {{ post.time_to_read }} min leestijd</div>
+
+                            </a>
+                        {% endfor %}
+                    </div>
+
+
+                    <nav role="navigation" aria-label="Pagination Navigation">
+                        <ul class="pagination">
+                            <li class="prev">
+                                <a href="#">
+                                    <img src="/config/static/assets/images/pagination-prev.svg" alt="">
+                                </a>
+                            </li>
+                            <li class="active"><a href="#" aria-current="true">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <!-- <li><span>...</span></li> -->
+                            <li><a href="#">4</a></li>
+                            <li class="next">
+                                <a href="#" aria-label="Next Page">
+                                    <img src="/config/static/assets/images/pagination-next.svg" alt="">
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </section>
+
+            <section class="contact-section bg-bottom">
+                <?php include '_includes/contact-section.html';?>
+            </section>
+
+{% endblock %}
