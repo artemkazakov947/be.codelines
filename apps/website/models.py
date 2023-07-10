@@ -1,6 +1,7 @@
 import os
 
 from django.db import models
+from django.template.defaultfilters import slugify
 from django.urls import reverse_lazy
 from taggit.managers import TaggableManager
 
@@ -43,12 +44,20 @@ class Job(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
     skill = models.ManyToManyField(Skill, related_name="jobs")
+    slug = models.SlugField(default="slug")
 
     def __str__(self):
         return self.name
 
+    def save(
+        self, force_insert=False, force_update=False, using=None, update_fields=None
+    ):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        return super().save(force_insert=False, force_update=False, using=None, update_fields=None)
+
     def get_absolute_url(self):
-        return reverse_lazy("website:job-detail", kwargs={"pk": self.pk})
+        return reverse_lazy("website:job-detail", kwargs={"slug": self.slug})
 
 
 class Post(models.Model):
@@ -56,6 +65,7 @@ class Post(models.Model):
     content = models.TextField()
     created = models.DateField(auto_now_add=True)
     time_to_read = models.IntegerField()
+    slug = models.SlugField(default="slug")
     tag = TaggableManager()
 
     class Meta:
@@ -64,5 +74,12 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+    def save(
+        self, force_insert=False, force_update=False, using=None, update_fields=None
+    ):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        return super().save(force_insert=False, force_update=False, using=None, update_fields=None)
+
     def get_absolute_url(self):
-        return reverse_lazy("website:post-detail", kwargs={"pk": self.pk})
+        return reverse_lazy("website:post-detail", kwargs={"slug": self.slug})
