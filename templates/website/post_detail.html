@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}Blog - article{% endblock %}
+{% block content %}
+    <article class="blog-item">
+                <div class="container">
+                    <div class="blog-item__inner">
+                        <header class="blog-item__header bg-ellipse10">
+                            <div class="blog-item__header-img">
+                                <img src="/config/static/images/blog-item__header-img.jpg" alt="">
+                            </div>
+                            <div class="blog-item__header-inner">
+                                <a href="{% url 'website:post-list' %}" class="btn --btn-back">Terug naar overzicht</a>
+                                <div class="blog-item__header-content blog-card">
+                                    <div class="blog-card__cat-list">
+                                        {% for tag in post.tag.all %}
+                                            <div class="blog-card__cat-item">{{ tag }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="blog-item__header-title">
+                                        <h1>{{ post.title }}</h1>
+                                    </div>
+                                    <div class="blog-card__date">{{ post.created }} • {{ post.time_to_read }} min leestijd</div>
+                                </div>
+                            </div>
+                        </header>
+                        <section class="blog-item__body article-body --content js-article-body">
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam <strong>nonumy eirmod tempor</strong> invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy <a href="#">eirmod tempor</a> invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur.</p>
+                            <h6>Tussentitel</h6>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+                            <ol>
+                                <li>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore</li>
+                                <li>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</li>
+                                <li>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</li>
+                            </ol>
+                            <p><strong>Kleine Tussentitel</strong></p>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+                            <p><img src="/config/static/images/article-body-img.jpg" alt=""></p>
+                        </section>
+                        <footer class="blog-item__footer">
+                            <div class="article-share">
+                                <span>share</span>
+                                <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                                    <img src="/config/static/assets/images/article-share-facebook.svg" alt="">
+                                </a>
+                                <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Linkedin">
+                                    <img src="/config/static/assets/images/article-share-linkedin.svg" alt="">
+                                </a>
+                                <a href="#" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                                    <img src="/config/static/assets/images/article-share-whatsapp.svg" alt="">
+                                </a>
+                                <a href="#" target="_blank" rel="noopener noreferrer" aria-label="E-mail">
+                                    <img src="/config/static/assets/images/article-share-mail.svg" alt="">
+                                </a>
+                            </div>
+                        </footer>
+                    </div>
+                </div>
+            </article>
+
+            <section class="blog-overview --related">
+                <div class="container">
+                    <div class="blog-overview__list">
+                        {% for post in tagged_posts %}
+
+                            <a href="{{ post.get_absolute_url }}" class="blog-overview__item blog-card">
+                                <div class="blog-card__cat-list">
+                                    {% for tag in post.tag.all %}
+                                        <div class="blog-card__cat-item">{{ tag }}</div>
+                                    {% endfor %}
+                                </div>
+                                <div class="blog-overview__item-title">
+                                    <h3 class="like-h4 decoration-hover">{{ post.title }}</h3>
+                                </div>
+                                <div class="blog-card__date">{{ post.created }} • {{ post.time_to_read }} min leestijd</div>
+                            </a>
+
+                        {% endfor %}
+                    </div>
+                    <a href="{% url 'website:post-list' %}" class="btn --btn-yellow-transparent">bekijk alle artikels</a>
+                </div>
+            </section>
+
+            <section class="contact-section bg-bottom">
+                <?php include '_includes/contact-section.html';?>
+            </section>
+{% endblock %}
