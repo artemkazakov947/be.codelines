@@ -18,7 +18,7 @@
                 </header>
                 <main>
                     {% block content %}{% endblock %}
-                    {% block pagination %}{% endblock %}
+                    {% block pagination %} {% include "includes/pagination.html" %} {% endblock %}
                     {% block contact_section %}{% endblock %}
                 </main>
                 <footer id="footer-page">
