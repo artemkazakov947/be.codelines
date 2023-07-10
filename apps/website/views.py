@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from taggit.models import Tag
 
@@ -41,3 +41,13 @@ class PostListView(generic.ListView):
         if tags:
             queryset = queryset.filter(tag__name__in=tags)
         return queryset
+
+
+class PostDetailView(generic.DetailView):
+    model = Post
+
+    def get_context_data(self, **kwargs):
+        post = get_object_or_404(Post, pk=self.kwargs["pk"])
+        context = super().get_context_data(**kwargs)
+        context["tagged_posts"] = Post.objects.filter(tag__in=post.tag.all()).distinct()
+        return context
