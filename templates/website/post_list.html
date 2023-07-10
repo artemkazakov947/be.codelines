@@ -8,7 +8,7 @@
                     </div>
                     <div class="blog-highlight__list">
                         {% for post in post_list|slice:":3" %}
-                            <a href="blog-article.php" class="blog-highlight__item blog-card">
+                            <a href="{{ post.get_absolute_url }}" class="blog-highlight__item blog-card">
                                 <div class="blog-highlight__item-img">
                                     <img src="/config/static/images/blog-highlight__item-img.jpg" alt="">
                                 </div>
@@ -62,7 +62,7 @@
                     </ul>
                     <div class="blog-overview__list">
                         {% for post in post_list %}
-                            <a href="blog-article.php" class="blog-overview__item blog-card">
+                            <a href="{{ post.get_absolute_url }}" class="blog-overview__item blog-card">
 
                             <div class="blog-card__cat-list">
                                {% for tag in post.tag.all %}
