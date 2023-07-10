@@ -58,8 +58,11 @@ class Post(models.Model):
     time_to_read = models.IntegerField()
     tag = TaggableManager()
 
+    class Meta:
+        ordering = ["-created"]
+
     def __str__(self):
         return self.title
 
-    class Meta:
-        ordering = ["-created"]
+    def get_absolute_url(self):
+        return reverse_lazy("website:post-detail", kwargs={"pk": self.pk})
