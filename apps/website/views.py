@@ -28,7 +28,7 @@ class JobDetailView(generic.DetailView):
 class PostListView(generic.ListView):
     model = Post
     queryset = Post.objects.all().prefetch_related("tag")
-    paginate_by = 2
+    paginate_by = 6
     
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
