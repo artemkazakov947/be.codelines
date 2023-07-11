@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from taggit.models import Tag
 
-from apps.website.models import Employee, Job, Post
+from apps.website.models import Employee, Job, Post, Service
 
 
 def contact_page(request):
@@ -45,9 +45,17 @@ class PostListView(generic.ListView):
 
 class PostDetailView(generic.DetailView):
     model = Post
+    queryset = Post.objects.all().prefetch_related("tag")
 
     def get_context_data(self, **kwargs):
         post = get_object_or_404(Post, pk=self.object.id)
         context = super().get_context_data(**kwargs)
-        context["tagged_posts"] = Post.objects.filter(tag__in=post.tag.all()).distinct()
+        context["tagged_posts"] = Post.objects.filter(tag__in=post.tag.all()).distinct().prefetch_related("tag")
         return context
+
+
+class ServiceListView(generic.ListView):
+    model = Service
+    queryset = Service.objects.all()
+
+
