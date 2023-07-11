@@ -4,10 +4,12 @@ from apps.website.models import (Role,
                                  Employee,
                                  Skill,
                                  Job,
-                                 Post)
+                                 Post,
+                                 Service)
 
 admin.site.register(Role)
 admin.site.register(Employee)
 admin.site.register(Skill)
 admin.site.register(Job)
 admin.site.register(Post)
+admin.site.register(Service)
