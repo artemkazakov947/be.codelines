@@ -44,7 +44,7 @@ class Job(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
     skill = models.ManyToManyField(Skill, related_name="jobs")
-    slug = models.SlugField(default="slug")
+    slug = models.SlugField(blank=True, unique=True)
 
     def __str__(self):
         return self.name
@@ -65,7 +65,7 @@ class Post(models.Model):
     content = models.TextField()
     created = models.DateField(auto_now_add=True)
     time_to_read = models.IntegerField()
-    slug = models.SlugField(default="slug")
+    slug = models.SlugField(blank=True, unique=True)
     tag = TaggableManager()
 
     class Meta:

@@ -47,7 +47,7 @@ class PostDetailView(generic.DetailView):
     model = Post
 
     def get_context_data(self, **kwargs):
-        post = get_object_or_404(Post, pk=self.kwargs["pk"])
+        post = get_object_or_404(Post, pk=self.object.id)
         context = super().get_context_data(**kwargs)
         context["tagged_posts"] = Post.objects.filter(tag__in=post.tag.all()).distinct()
         return context
