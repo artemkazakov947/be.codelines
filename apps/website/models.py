@@ -83,3 +83,18 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse_lazy("website:post-detail", kwargs={"slug": self.slug})
+
+
+class Service(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.name
+
+
+class EmailForPostNotification(models.Model):
+    email = models.EmailField(unique=True)
+
+    def __str__(self):
+        return self.email
