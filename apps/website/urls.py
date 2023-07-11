@@ -7,6 +7,7 @@ from apps.website.views import (
     JobDetailView,
     PostListView,
     PostDetailView,
+    ServiceListView,
 )
 
 urlpatterns = [
@@ -15,6 +16,8 @@ urlpatterns = [
     path("jobs/", JobListView.as_view(), name="job-list"),
     path("jobs/<slug:slug>/", JobDetailView.as_view(), name="job-detail"),
     path("blog/", PostListView.as_view(), name="post-list"),
-    path("blog/<slug:slug>/", PostDetailView.as_view(), name="post-detail")
+    path("blog/<slug:slug>/", PostDetailView.as_view(), name="post-detail"),
+    path("services/", ServiceListView.as_view(), name="service-list")
 ]
+
 app_name = "website"
