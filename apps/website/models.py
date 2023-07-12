@@ -5,6 +5,8 @@ from django.template.defaultfilters import slugify
 from django.urls import reverse_lazy
 from taggit.managers import TaggableManager
 
+from apps.website.helpers import send_new_post_notification
+
 
 def team_foto_file_path(instance, filename: str):
     _, extension = os.path.splitext(filename)
@@ -77,6 +79,7 @@ class Post(models.Model):
     def save(
         self, force_insert=False, force_update=False, using=None, update_fields=None
     ):
+        # send_new_post_notification(self)
         if not self.slug:
             self.slug = slugify(self.title)
         return super().save(force_insert=False, force_update=False, using=None, update_fields=None)
