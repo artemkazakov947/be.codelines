@@ -1,11 +1,15 @@
+from urllib.request import Request
+
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse_lazy
 from django.views import generic
 from taggit.models import Tag
 
+from apps.website.forms import EmailPostNotificationForm
 from apps.website.models import Employee, Job, Post, Service
 
 
-def contact_page(request):
+def contact_page(request: Request):
     return render(request, "website/contact_page.html")
 
 
@@ -29,10 +33,11 @@ class PostListView(generic.ListView):
     model = Post
     queryset = Post.objects.all().prefetch_related("tag")
     paginate_by = 6
-    
+
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context["tags"] = Tag.objects.all()
+        context["form"] = EmailPostNotificationForm()
         return context
 
     def get_queryset(self):
@@ -41,6 +46,19 @@ class PostListView(generic.ListView):
         if tags:
             queryset = queryset.filter(tag__name__in=tags)
         return queryset
+
+
+class EmailForNotificationView(generic.FormView):
+    form_class = EmailPostNotificationForm
+    template_name = "website/post_list.html"
+    success_url = reverse_lazy("website:post-list")
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            form.save()
+            return self.form_valid(form)
+        return self.form_invalid(form)
 
 
 class PostDetailView(generic.DetailView):
