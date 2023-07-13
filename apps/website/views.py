@@ -5,12 +5,15 @@ from django.urls import reverse_lazy
 from django.views import generic
 from taggit.models import Tag
 
-from apps.website.forms import EmailPostNotificationForm
+from apps.website.forms import EmailPostNotificationForm, RequestFromUserForm
 from apps.website.models import Employee, Job, Post, Service
+from base.mixins import RequestFromUserMixin
 
 
 def contact_page(request: Request):
-    return render(request, "website/contact_page.html")
+    form = RequestFromUserForm
+    context = {"form": form}
+    return render(request, "website/contact_page.html", context=context)
 
 
 class OverOnsView(generic.ListView):
@@ -29,7 +32,7 @@ class JobDetailView(generic.DetailView):
     model = Job
 
 
-class PostListView(generic.ListView):
+class PostListView(RequestFromUserMixin, generic.ListView):
     model = Post
     queryset = Post.objects.all().prefetch_related("tag")
     paginate_by = 6
@@ -37,7 +40,7 @@ class PostListView(generic.ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context["tags"] = Tag.objects.all()
-        context["form"] = EmailPostNotificationForm()
+        context["form_email"] = EmailPostNotificationForm()
         return context
 
     def get_queryset(self):
@@ -72,8 +75,28 @@ class PostDetailView(generic.DetailView):
         return context
 
 
-class ServiceListView(generic.ListView):
+class ServiceListView(RequestFromUserMixin, generic.ListView):
     model = Service
     queryset = Service.objects.all()
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=None, **kwargs)
+        return context
 
+
+class RequestFromUserView(generic.FormView):
+    form_class = RequestFromUserForm
+    template_name = "includes/contact-section.html"
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            form.save()
+            return self.form_valid(form)
+        return self.form_invalid(form)
+
+    def get_success_url(self):
+        referer_url = self.request.META.get('HTTP_REFERER')
+        if referer_url:
+            return referer_url
+        return super().get_success_url()

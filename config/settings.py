@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "debug_toolbar",
     "apps.website",
     "taggit",
+    "phonenumber_field",
 ]
 
 MIDDLEWARE = [
