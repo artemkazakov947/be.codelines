@@ -38,46 +38,50 @@
                     </div>
                 </div>
                 <div class="contact__right">
-                    <form action="" method="">
+                     <form action="{% url 'website:request-from-user' %}" method="post">
 
-                        <div class="form-row">
-                            <label for="formfield-1">Hallo, ik ben</label>
-                            <div class="form-row__field form-row__name">
-                                <input type="text" name="Full-Name" placeholder="voor- en achternaam" required="" id="formfield-1">
-                            </div>
-                            <span>.</span>
-                        </div>
+                <div class="form-row">
+                    <label for="formfield-1">Hallo, ik ben</label>
+                    <div class="form-row__field form-row__name">
+                        {% csrf_token %}
+                        {{ form.full_name }}
+                    </div>
+                    <span class="dot">.</span>
+                </div>
 
-                        <div class="form-row">
-                            <label for="formfield-2">Je kan mij bereiken via</label>
-                            <div class="form-row__field form-row__mail">
-                                <input type="email" name="E-mailadres" placeholder="e-mailadres" required="" id="formfield-2">
-                            </div>
-                            <label for="formfield-3">of</label>
-                            <div class="form-row__field form-row__tel">
-                                <input type="tel" name="Phone-Number" placeholder="gsm-nummer" required="" id="formfield-3">
-                            </div>
-                            <span>.</span>
-                        </div>
+                <div class="form-row">
+                    <label for="formfield-2">Je kan mij bereiken via</label>
+                    <div class="form-row__field form-row__mail">
+                        {% csrf_token %}
+                        {{ form.email }}
+                    </div>
+                    <label for="formfield-3">of</label>
+                    <div class="form-row__field form-row__tel">
+                        {% csrf_token %}
+                        {{ form.phone_number }}
+                    </div>
+                    <span class="dot">.</span>
+                </div>
 
-                        <div class="form-row">
-                            <label for="formfield-4">Ik zou graag meer informatie hebben over </label>
-                            <div class="form-row__field form-row__msg">
-                                <textarea name="mijn vraag" placeholder="mijn vraag" required="" id="formfield-4"></textarea>
-                            </div>
-                            <span>.</span>
-                        </div>
+                <div class="form-row">
+                    <label for="formfield-4">Ik zou graag meer informatie hebben over </label>
+                    <div class="form-row__field form-row__msg">
+                        {% csrf_token %}
+                        {{ form.question }}
+                    </div>
+                    <span class="dot">.</span>
+                </div>
 
-                        <div class="form-row-privacy">
-                            <input type="checkbox" name="privacy" id="formfield-5" value="" required="">
-                            <label for="formfield-5">Ik ga akkoord met de <a href="#">privacy policy</a>.</label>
-                        </div>
+                <div class="form-row-privacy">
+                    <input type="checkbox" name="privacy" id="formfield-5" value="" required="">
+                    <label for="formfield-5">Ik ga akkoord met de <a href="#">privacy policy</a>.</label>
+                </div>
 
-                        <div class="form-row-submit">
-                            <button type="submit" class="btn">verstuur vraag</button>
-                        </div>
+                <div class="form-row-submit">
+                    <button type="submit" class="btn">verstuur vraag</button>
+                </div>
 
-                    </form>
+            </form>
                 </div>
             </section>
 {% endblock %}
