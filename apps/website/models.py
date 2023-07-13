@@ -3,9 +3,8 @@ import os
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.urls import reverse_lazy
+from phonenumber_field.modelfields import PhoneNumberField
 from taggit.managers import TaggableManager
-
-from apps.website.helpers import send_new_post_notification
 
 
 def team_foto_file_path(instance, filename: str):
@@ -101,3 +100,17 @@ class EmailForPostNotification(models.Model):
 
     def __str__(self):
         return self.email
+
+
+class RequestFromUser(models.Model):
+    full_name = models.CharField(max_length=100)
+    email = models.EmailField(blank=True, null=True, unique=True)
+    phone_number = PhoneNumberField(blank=True, null=True)
+    question = models.TextField()
+    created = models.DateField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created"]
+
+    def __str__(self):
+        return f"Question from {self.full_name} from {self.created}"
