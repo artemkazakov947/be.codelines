@@ -43,7 +43,7 @@
                                     <label for="subscribe-mail">Ja! Schrijf mij in op</label>
                                     <div class="form-row__field form-row__mail">
                                         {% csrf_token %}
-                                        {{ form.email }}
+                                        {{ form_email.email }}
                                     </div>
                                     <span class="dot">.</span>
                                     <button type="submit" aria-label="submit" class="btn --btn-arrow"></button>
@@ -83,7 +83,7 @@
             </section>
 
             <section class="contact-section bg-bottom">
-                <?php include '_includes/contact-section.html';?>
+                {% include "includes/contact-section.html" %}
             </section>
 
 {% endblock %}

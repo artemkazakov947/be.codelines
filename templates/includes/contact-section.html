@@ -1,0 +1,54 @@
+<div class="container">
+    <div class="contact-section__inner">
+        <div class="contact-section__header">
+            <h3 class="subtitle">Contact</h3>
+            <h2>Klaar voor de volgende stap?</h2>
+        </div>
+        <div class="contact-section__form contact-form">
+            <form action="{% url 'website:request-from-user' %}" method="post">
+
+                <div class="form-row">
+                    <label for="formfield-1">Hallo, ik ben</label>
+                    <div class="form-row__field form-row__name">
+                        {% csrf_token %}
+                        {{ form.full_name }}
+                    </div>
+                    <span class="dot">.</span>
+                </div>
+
+                <div class="form-row">
+                    <label for="formfield-2">Je kan mij bereiken via</label>
+                    <div class="form-row__field form-row__mail">
+                        {% csrf_token %}
+                        {{ form.email }}
+                    </div>
+                    <label for="formfield-3">of</label>
+                    <div class="form-row__field form-row__tel">
+                        {% csrf_token %}
+                        {{ form.phone_number }}
+                    </div>
+                    <span class="dot">.</span>
+                </div>
+
+                <div class="form-row">
+                    <label for="formfield-4">Ik zou graag meer informatie hebben over </label>
+                    <div class="form-row__field form-row__msg">
+                        {% csrf_token %}
+                        {{ form.question }}
+                    </div>
+                    <span class="dot">.</span>
+                </div>
+
+                <div class="form-row-privacy">
+                    <input type="checkbox" name="privacy" id="formfield-5" value="" required="">
+                    <label for="formfield-5">Ik ga akkoord met de <a href="#">privacy policy</a>.</label>
+                </div>
+
+                <div class="form-row-submit">
+                    <button type="submit" class="btn">verstuur vraag</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
