@@ -10,7 +10,7 @@
                             <div class="desc">
                                 <p>Wij zijn een full-service digitaal bureau dat zich richt op het leveren van hoogwaardige en op maat gemaakte digitale oplossingen voor onze klanten. Maar je vraag je af hoe? Door de jaren heen hebben we ons verdiept in optimalisatie en we kunnen met trots zeggen dat we dit ook steeds succesvol doen. We hebben ons gespecialiseerd in verscheidene diensten die ons helpen dit doel te behalen.</p>
                             </div>
-                            <a href="/cases.php" class="btn --btn-yellow-transparent">ontdek onze cases</a>
+                            <a href="{% url 'website:case-list' %}" class="btn --btn-yellow-transparent">ontdek onze cases</a>
                         </div>
                     </div>
                 </div>
@@ -43,47 +43,30 @@
                         <h2 data-aos="fade-up" data-aos-duration="500">Bekijk succesvolle cases</h2>
                     </div>
                     <div class="cases-list">
-
-                        <div class="cases-list-item" data-aos="fade-up" data-aos-duration="500">
-                            <a href="/cases-detail.php" class="cases-card">
-                                <div class="cases-card__img">
-                                    <img src="/config/static/images/cases-card__img-1.jpg" alt="">
-                                </div>
-                                <div class="cases-card__content">
-                                    <div class="cases-card__top">
-                                        <div class="cases-card__label">mobiele app</div>
-                                        <span class="read-more --white">bekijk case</span>
+                        {% for case in another_cases %}
+                            <div class="cases-list-item" data-aos="fade-up" data-aos-duration="500">
+                                <a href="{{ case.get_absolute_url }}" class="cases-card">
+                                    <div class="cases-card__img">
+                                        <img src="{{ case.cover.url }}" alt="">
                                     </div>
-                                    <div class="cases-card__bottom">
-                                        <span class="read-more --white">naam van case</span>
-                                        <div class="cases-card__desc">Een tot twee lijnen over deze case met korte intro over wat het is</div>
+                                    <div class="cases-card__content">
+                                        <div class="cases-card__top">
+                                            <div class="cases-card__label">mobiele app</div>
+                                            <span class="read-more --white">bekijk case</span>
+                                        </div>
+                                        <div class="cases-card__bottom">
+                                            <span class="read-more --white">{{ case.name }}</span>
+                                            <div class="cases-card__desc">Een tot twee lijnen over deze case met korte intro over wat het is</div>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="cases-list-item" data-aos="fade-up" data-aos-duration="500">
-                            <a href="/cases-detail.php" class="cases-card">
-                                <div class="cases-card__img">
-                                    <img src="/config/static/images/cases-card__img-1.jpg" alt="">
-                                </div>
-                                <div class="cases-card__content">
-                                    <div class="cases-card__top">
-                                        <div class="cases-card__label">mobiele app</div>
-                                        <span class="read-more --white">bekijk case</span>
-                                    </div>
-                                    <div class="cases-card__bottom">
-                                        <span class="read-more --white">naam van case</span>
-                                        <div class="cases-card__desc">Een tot twee lijnen over deze case met korte intro over wat het is</div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
+                                </a>
+                            </div>
+                        {% endfor %}
                     </div>
-                    <a href="/cases.php" class="btn --btn-yellow-transparent">bekijk al onze cases</a>
+                    <a href="{% url 'website:case-list' %}" class="btn --btn-yellow-transparent">bekijk al onze cases</a>
                 </div>
             </section>
+
 
             <section class="contact-section bg-bottom">
                 {% include "includes/contact-section.html" %}
