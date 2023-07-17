@@ -30,6 +30,3 @@ class RequestFromUserForm(forms.ModelForm):
         model = RequestFromUser
         fields = "__all__"
         exclude = ("created", )
-
-
-
