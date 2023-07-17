@@ -6,8 +6,12 @@ from django.views import generic
 from taggit.models import Tag
 
 from apps.website.forms import EmailPostNotificationForm, RequestFromUserForm
-from apps.website.models import Employee, Job, Post, Service
+from apps.website.models import Employee, Job, Post, Service, Case
 from base.mixins import RequestFromUserMixin
+
+
+def cookie(request):
+    return render(request, "website/cookie.html")
 
 
 def contact_page(request: Request):
@@ -100,3 +104,25 @@ class RequestFromUserView(generic.FormView):
         if referer_url:
             return referer_url
         return super().get_success_url()
+
+
+class CaseListView(RequestFromUserMixin, generic.ListView):
+    model = Case
+    queryset = Case.objects.all()
+    paginate_by = 6
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=None, **kwargs)
+        return context
+
+
+class CaseDetailView(generic.DetailView):
+    model = Case
+    queryset = Case.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["another_cases"] = Case.get_two_random_obj()
+        return context
+
+
