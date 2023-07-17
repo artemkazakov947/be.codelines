@@ -1,9 +1,9 @@
 import random
 
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.conf import settings
 from django.core.mail import send_mail
 from django.db import models
-from django.db.models import Max
 from django.template.defaultfilters import slugify
 from django.urls import reverse_lazy
 from phonenumber_field.modelfields import PhoneNumberField
@@ -60,7 +60,7 @@ class Job(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=255, unique=True)
-    content = models.TextField()
+    content = RichTextUploadingField()
     created = models.DateField(auto_now_add=True)
     time_to_read = models.IntegerField()
     slug = models.SlugField(blank=True, unique=True)
@@ -91,7 +91,7 @@ class Post(models.Model):
 
 class Service(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    description = models.TextField()
+    description = RichTextUploadingField()
 
     def __str__(self):
         return self.name
@@ -135,8 +135,8 @@ class RequestFromUser(models.Model):
 class Case(models.Model):
     name = models.CharField(max_length=255, unique=True)
     company = models.CharField(max_length=255)
-    briefing = models.TextField()
-    result = models.TextField()
+    briefing = RichTextUploadingField()
+    result = RichTextUploadingField()
     cover = models.ImageField(upload_to=case_file_path)
     slug = models.SlugField(default="default_slug")
     # product = models.ForeignKey() TODO: implement product model
@@ -156,11 +156,4 @@ class Case(models.Model):
 
     @staticmethod
     def get_two_random_obj():
-        two_random_obj = []
-        max_id = Case.objects.all().aggregate(max_id=Max("id"))["max_id"]
-        for _ in range(2):
-            random_pk = random.randint(1, max_id)
-            case = Case.objects.filter(pk=random_pk).first()
-            if case:
-                two_random_obj.append(case)
-        return two_random_obj
+        return random.sample(list(Case.objects.all()), 2)
