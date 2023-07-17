@@ -11,6 +11,7 @@ from apps.website.models import (Role,
                                  )
 from base.mixins import BaseReadOnlyAdminMixin
 
+
 admin.site.register(Role)
 admin.site.register(Employee)
 admin.site.register(Skill)

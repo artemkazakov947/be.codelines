@@ -3,7 +3,9 @@ black==23.3.0
 certifi==2023.5.7
 click==8.1.3
 Django==4.2.2
+django-ckeditor==6.6.1
 django-debug-toolbar==4.1.0
+django-js-asset==2.1.0
 django-phonenumber-field==7.1.0
 django-taggit==4.0.0
 mypy-extensions==1.0.0

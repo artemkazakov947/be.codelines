@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "debug_toolbar",
+    "ckeditor",
+    "ckeditor_uploader",
     "apps.website",
     "taggit",
     "phonenumber_field",
@@ -135,6 +137,8 @@ STATICFILES_DIRS = [
     BASE_DIR / "config" / "static",
 ]
 
+# STATIC_ROOT = os.path.join(BASE_DIR, "config/static")
+
 MEDIA_URL = "/media/"
 
 MEDIA_ROOT = BASE_DIR / "media"
@@ -149,6 +153,7 @@ EMAIL_BACKEND = os.getenv("EMAIL_BACKEND")
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 # EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 
+CKEDITOR_UPLOAD_PATH = "media/uploads/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

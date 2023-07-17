@@ -21,7 +21,7 @@ class RequestFromUserForm(forms.ModelForm):
     email = forms.EmailField(
         widget=forms.EmailInput(attrs={"placeholder": "e-mailadres"})
     )
-    phone_number = PhoneNumberField()
+    phone_number = PhoneNumberField(widget=forms.TextInput(attrs={"placeholder": "gsm"}))
     question = forms.CharField(
         widget=forms.TextInput(attrs={"placeholder": "mijn vraag"})
     )
