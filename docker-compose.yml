@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  be.codelines:
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    environment:
+      - EMAIL_BACKEND=django.core.mail.backends.console.EmailBackend
+      - EMAIL_HOST_USER=testcodelines@gmail.com
+
+
