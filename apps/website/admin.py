@@ -1,14 +1,15 @@
 from django.contrib import admin
-from apps.website.models import (Role,
-                                 Employee,
-                                 Skill,
-                                 Job,
-                                 Post,
-                                 Service,
-                                 EmailForPostNotification,
-                                 Case,
-                                 RequestFromUser
-                                 )
+from apps.website.models import (
+    Role,
+    Employee,
+    Skill,
+    Job,
+    Post,
+    Service,
+    EmailForPostNotification,
+    Case,
+    RequestFromUser,
+)
 from base.mixins import BaseReadOnlyAdminMixin
 
 

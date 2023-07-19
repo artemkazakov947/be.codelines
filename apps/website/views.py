@@ -75,7 +75,11 @@ class PostDetailView(RequestFromUserMixin, generic.DetailView):
     def get_context_data(self, **kwargs):
         post = get_object_or_404(Post, pk=self.object.id)
         context = super().get_context_data(**kwargs)
-        context["tagged_posts"] = Post.objects.filter(tag__in=post.tag.all()).distinct().prefetch_related("tag")
+        context["tagged_posts"] = (
+            Post.objects.filter(tag__in=post.tag.all())
+            .distinct()
+            .prefetch_related("tag")
+        )
         return context
 
 
@@ -101,7 +105,7 @@ class RequestFromUserView(generic.FormView):
         return self.form_invalid(form)
 
     def get_success_url(self):
-        referer_url = self.request.META.get('HTTP_REFERER')
+        referer_url = self.request.META.get("HTTP_REFERER")
         if referer_url:
             return referer_url
         return super().get_success_url()
@@ -125,5 +129,3 @@ class CaseDetailView(generic.DetailView):
         context = super().get_context_data(**kwargs)
         context["another_cases"] = Case.get_two_random_obj()
         return context
-
-

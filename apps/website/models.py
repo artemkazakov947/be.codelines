@@ -4,6 +4,7 @@ from ckeditor_uploader.fields import RichTextUploadingField
 from django.conf import settings
 from django.core.mail import send_mail
 from django.db import models
+from django.db.models import Max
 from django.template.defaultfilters import slugify
 from django.urls import reverse_lazy
 from phonenumber_field.modelfields import PhoneNumberField
@@ -52,7 +53,9 @@ class Job(models.Model):
     ):
         if not self.slug:
             self.slug = slugify(self.name)
-        return super().save(force_insert=False, force_update=False, using=None, update_fields=None)
+        return super().save(
+            force_insert=False, force_update=False, using=None, update_fields=None
+        )
 
     def get_absolute_url(self):
         return reverse_lazy("website:job-detail", kwargs={"slug": self.slug})
@@ -75,7 +78,12 @@ class Post(models.Model):
     def send_new_post_notification(self) -> None:
         emails = [email.email for email in EmailForPostNotification.objects.all()]
         email_from = settings.EMAIL_HOST_USER
-        send_mail(subject=self.title, message=self.content, from_email=email_from, recipient_list=emails)
+        send_mail(
+            subject=self.title,
+            message=self.content,
+            from_email=email_from,
+            recipient_list=emails,
+        )
 
     def save(
         self, force_insert=False, force_update=False, using=None, update_fields=None
@@ -83,7 +91,9 @@ class Post(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         self.send_new_post_notification()
-        return super().save(force_insert=False, force_update=False, using=None, update_fields=None)
+        return super().save(
+            force_insert=False, force_update=False, using=None, update_fields=None
+        )
 
     def get_absolute_url(self):
         return reverse_lazy("website:post-detail", kwargs={"slug": self.slug})
@@ -120,16 +130,25 @@ class RequestFromUser(models.Model):
     def send_users_request_to_admin(self) -> None:
         email = settings.EMAIL_HOST_USER
         email_from = self.email
-        message = f"name: {self.full_name}, \n " \
-                  f"contact: {(self.email, self.phone_number.national_number)}, \n " \
-                  f"question: {self.question}"
-        send_mail(subject=str(self), message=message, from_email=email_from, recipient_list=[email])
+        message = (
+            f"name: {self.full_name}, \n "
+            f"contact: {(self.email, self.phone_number.national_number)}, \n "
+            f"question: {self.question}"
+        )
+        send_mail(
+            subject=str(self),
+            message=message,
+            from_email=email_from,
+            recipient_list=[email],
+        )
 
     def save(
         self, force_insert=False, force_update=False, using=None, update_fields=None
     ):
         self.send_users_request_to_admin()
-        return super().save(force_insert=False, force_update=False, using=None, update_fields=None)
+        return super().save(
+            force_insert=False, force_update=False, using=None, update_fields=None
+        )
 
 
 class Case(models.Model):
@@ -149,11 +168,20 @@ class Case(models.Model):
     ):
         if not self.slug:
             self.slug = slugify(self.name)
-        return super().save(force_insert=False, force_update=False, using=None, update_fields=None)
+        return super().save(
+            force_insert=False, force_update=False, using=None, update_fields=None
+        )
 
     def get_absolute_url(self):
         return reverse_lazy("website:case-detail", kwargs={"slug": self.slug})
 
     @staticmethod
     def get_two_random_obj():
-        return random.sample(list(Case.objects.all()), 2)
+        two_cases = []
+        max_id = Case.objects.all().aggregate(max_id=Max("id"))['max_id']
+        while len(two_cases) < 2:
+            pk = random.randint(1, max_id)
+            case = Case.objects.filter(pk=pk).first()
+            if case:
+                two_cases.append(case)
+        return two_cases

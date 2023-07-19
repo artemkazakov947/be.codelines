@@ -21,7 +21,9 @@ class RequestFromUserForm(forms.ModelForm):
     email = forms.EmailField(
         widget=forms.EmailInput(attrs={"placeholder": "e-mailadres"})
     )
-    phone_number = PhoneNumberField(widget=forms.TextInput(attrs={"placeholder": "gsm"}))
+    phone_number = PhoneNumberField(
+        widget=forms.TextInput(attrs={"placeholder": "gsm"})
+    )
     question = forms.CharField(
         widget=forms.TextInput(attrs={"placeholder": "mijn vraag"})
     )
@@ -29,4 +31,4 @@ class RequestFromUserForm(forms.ModelForm):
     class Meta:
         model = RequestFromUser
         fields = "__all__"
-        exclude = ("created", )
+        exclude = ("created",)
