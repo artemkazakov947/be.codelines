@@ -13,6 +13,7 @@ from apps.website.views import (
     cookie,
     CaseListView,
     CaseDetailView,
+    web_application,
 )
 
 
@@ -33,6 +34,7 @@ urlpatterns = [
     path("cookiestament/", cookie, name="cookie"),
     path("cases/", CaseListView.as_view(), name="case-list"),
     path("case/<slug:slug>/", CaseDetailView.as_view(), name="case-detail"),
+    path("webapplication/", web_application, name="web_application")
 ]
 
 app_name = "website"
