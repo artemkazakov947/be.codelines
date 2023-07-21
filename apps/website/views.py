@@ -1,12 +1,15 @@
 from urllib.request import Request
 
 from django.shortcuts import render, get_object_or_404
+from django.template.response import TemplateResponse
 from django.urls import reverse_lazy
 from django.views import generic
+from requests import Response
 from taggit.models import Tag
 
 from apps.website.forms import EmailPostNotificationForm, RequestFromUserForm
-from apps.website.models import Employee, Job, Post, Service, Case
+from apps.website.models import Employee, Job, Post, Service, Case, WebApp
+from base.decorators import request_from_user_form
 from base.mixins import RequestFromUserMixin
 
 
@@ -129,3 +132,18 @@ class CaseDetailView(generic.DetailView):
         context = super().get_context_data(**kwargs)
         context["another_cases"] = Case.get_two_random_obj()
         return context
+
+
+@request_from_user_form
+def web_application(request: Request):
+    webapp = get_object_or_404(WebApp, pk=1)
+    two_cases = Case.get_two_random_obj()
+    context = {
+            "name": webapp.name,
+            "header_desc": webapp.header,
+            "body_desc": webapp.description,
+            "expectations": webapp.expectation.all(),
+            "two_cases": two_cases
+        }
+    return TemplateResponse(request, "website/web_application.html", context=context)
+
