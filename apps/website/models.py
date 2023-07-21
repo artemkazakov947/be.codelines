@@ -1,5 +1,6 @@
 import random
 
+from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.conf import settings
 from django.core.mail import send_mail
@@ -8,6 +9,7 @@ from django.db.models import Max
 from django.template.defaultfilters import slugify
 from django.urls import reverse_lazy
 from phonenumber_field.modelfields import PhoneNumberField
+from polymorphic.models import PolymorphicModel
 from taggit.managers import TaggableManager
 
 from base.helpers import team_foto_file_path, case_file_path
@@ -151,6 +153,39 @@ class RequestFromUser(models.Model):
         )
 
 
+
+
+
+class Expectation(models.Model):
+    name = models.CharField(max_length=55)
+    description = RichTextField()
+
+    def __str__(self):
+        return self.name
+
+
+class Product(PolymorphicModel):
+    name = models.CharField(max_length=100)
+    header = RichTextUploadingField()
+    description = RichTextUploadingField()
+    expectation = models.ManyToManyField(Expectation, related_name="products")
+
+    def __str__(self):
+        return self.name
+
+
+class MobileApp(Product):
+    expect_desc = RichTextField()
+
+
+class WebApp(Product):
+    pass
+
+
+class WebSite(Product):
+    pass
+
+
 class Case(models.Model):
     name = models.CharField(max_length=255, unique=True)
     company = models.CharField(max_length=255)
@@ -158,7 +193,7 @@ class Case(models.Model):
     result = RichTextUploadingField()
     cover = models.ImageField(upload_to=case_file_path)
     slug = models.SlugField(default="default_slug")
-    # product = models.ForeignKey() TODO: implement product model
+    # product = models.ForeignKey(Product, on_delete=models.DO_NOTHING, related_name="cases")
 
     def __str__(self):
         return self.name

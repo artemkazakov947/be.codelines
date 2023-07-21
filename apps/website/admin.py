@@ -9,6 +9,9 @@ from apps.website.models import (
     EmailForPostNotification,
     Case,
     RequestFromUser,
+    Expectation,
+    WebApp,
+    WebSite,
 )
 from base.mixins import BaseReadOnlyAdminMixin
 
@@ -21,6 +24,9 @@ admin.site.register(Post)
 admin.site.register(Service)
 admin.site.register(EmailForPostNotification)
 admin.site.register(Case)
+admin.site.register(Expectation)
+admin.site.register(WebApp)
+admin.site.register(WebSite)
 
 
 @admin.register(RequestFromUser)
