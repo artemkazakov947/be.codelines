@@ -153,9 +153,6 @@ class RequestFromUser(models.Model):
         )
 
 
-
-
-
 class Expectation(models.Model):
     name = models.CharField(max_length=55)
     description = RichTextField()

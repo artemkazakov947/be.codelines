@@ -14,6 +14,7 @@ from apps.website.views import (
     CaseListView,
     CaseDetailView,
     web_application,
+    custom_website, mobile_apps,
 )
 
 
@@ -34,7 +35,9 @@ urlpatterns = [
     path("cookiestament/", cookie, name="cookie"),
     path("cases/", CaseListView.as_view(), name="case-list"),
     path("case/<slug:slug>/", CaseDetailView.as_view(), name="case-detail"),
-    path("webapplication/", web_application, name="web_application")
+    path("webapplication/", web_application, name="web_application"),
+    path("custom-website/", custom_website, name="custom_website"),
+    path("mobile-apps/", mobile_apps, name="mobile-apps"),
 ]
 
 app_name = "website"
