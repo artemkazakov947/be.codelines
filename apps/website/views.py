@@ -4,11 +4,10 @@ from django.shortcuts import render, get_object_or_404
 from django.template.response import TemplateResponse
 from django.urls import reverse_lazy
 from django.views import generic
-from requests import Response
 from taggit.models import Tag
 
 from apps.website.forms import EmailPostNotificationForm, RequestFromUserForm
-from apps.website.models import Employee, Job, Post, Service, Case, WebApp
+from apps.website.models import Employee, Job, Post, Service, Case, WebApp, WebSite, MobileApp
 from base.decorators import request_from_user_form
 from base.mixins import RequestFromUserMixin
 
@@ -136,7 +135,7 @@ class CaseDetailView(generic.DetailView):
 
 @request_from_user_form
 def web_application(request: Request):
-    webapp = get_object_or_404(WebApp, pk=1)
+    webapp = WebApp.objects.all().first()
     two_cases = Case.get_two_random_obj()
     context = {
             "name": webapp.name,
@@ -147,3 +146,35 @@ def web_application(request: Request):
         }
     return TemplateResponse(request, "website/web_application.html", context=context)
 
+
+@request_from_user_form
+def custom_website(request: Request) -> TemplateResponse:
+    website: WebSite = WebSite.objects.all().first()
+    case_1 = Case.get_two_random_obj()[1]
+    two_cases = Case.get_two_random_obj()
+    context = {
+        "name": website.name,
+        "header_desc": website.header,
+        "body_desc": website.description,
+        "expectations": website.expectation.all(),
+        "case_1": case_1,
+        "two_cases": two_cases
+    }
+    return TemplateResponse(request, "website/custom_website.html", context=context)
+
+
+@request_from_user_form
+def mobile_apps(request: Request) -> TemplateResponse:
+    mobile_app: MobileApp = MobileApp.objects.all().first()
+    case_1 = Case.get_two_random_obj()[1]
+    two_cases = Case.get_two_random_obj()
+    context = {
+        "name": mobile_app.name,
+        "header_desc": mobile_app.header,
+        "body_desc": mobile_app.description,
+        "expectations": mobile_app.expectation.all(),
+        "expect_desc": mobile_app.expect_desc,
+        "case_1": case_1,
+        "two_cases": two_cases
+    }
+    return TemplateResponse(request, "website/mobile_apps.html", context=context)
