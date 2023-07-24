@@ -8,9 +8,9 @@
 
     <nav class="header-nav">
         <ul class="main-menu --left">
-            <li class="active"><a href="/webapplicaties.php">webapplicaties</a></li>
-            <li><a href="/mobiele-apps.php">mobiele apps</a></li>
-            <li><a href="/maatwerk-websites.php">maatwerk websites</a></li>
+            <li class="active"><a href="{% url 'website:web_application' %}">webapplicaties</a></li>
+            <li><a href="{% url 'website:mobile-apps' %}">mobiele apps</a></li>
+            <li><a href="{% url 'website:custom_website' %}">maatwerk websites</a></li>
         </ul>
         <ul class="main-menu --right">
             <li class="active"><a href="{% url 'website:case-list' %}">cases</a></li>
