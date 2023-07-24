@@ -1,16 +1,16 @@
 {% extends "base.html" %}
-{% block title %}Webapplicaties{% endblock %}
+{% block title %}Maatwerk websites{% endblock %}
 {% block content %}
     <section class="header-page">
                 <div class="container">
                     <div class="header-page__inner --grid">
                         <div class="header-page__img">
-                            <img src="/config/static/images/header-page__img-1.jpg" alt="">
+                            <img src="/config/static/images/header-page__img-2.jpg" alt="">
                         </div>
                         <div class="header-page__content">
-                            <h2 class="subtitle">{{ name}}</h2>
+                            <h2 class="subtitle">{{ name }}</h2>
                             <div class="desc">
-                                <p>{{ header_desc | safe}}</p>
+                                <p>{{ header_desc | safe }}</p>
                             </div>
                             <a href="#offer-intro" class="btn --btn-yellow-transparent js-scroll-to">start nu</a>
                         </div>
@@ -18,12 +18,33 @@
                 </div>
             </section>
 
-            <section id="offer-intro" class="offer-intro intro-content-list bg-ellipse5 bg-ellipse6">
+            <section id="offer-intro" class="offer-intro intro-case-content bg-ellipse5 bg-ellipse6">
                 <div class="container">
-                    <div class="intro-content-list__inner --grid">
-                        <div class="intro-content-list__content">
+                    <div class="intro-case-content__inner --grid">
+                        <div class="intro-case-content__header">
+                            <h2 data-aos="fade-up" data-aos-duration="500"></h2>
+                        </div>
+                        <div class="intro-case-content__case" data-aos="fade-up" data-aos-duration="500">
+                            <a href="{{ case_1.get_absolute_url }}" class="cases-card">
+                                <div class="cases-card__img">
+                                    <img src="{{ case_1.cover.url }}" alt="">
+                                </div>
+                                <div class="cases-card__content">
+                                    <div class="cases-card__top">
+                                        <div class="cases-card__label">mobiele app</div>
+                                        <span class="read-more --white">bekijk case</span>
+                                    </div>
+                                    <div class="cases-card__bottom">
+                                        <span class="read-more --white">{{ case_1.name }}</span>
+                                        <div class="cases-card__desc">Een tot twee lijnen over deze case met korte intro over wat het is</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="intro-case-content__content" data-aos="fade-up" data-aos-duration="500">
                             <div class="--content">
-                                {{ body_desc | safe}}
+                                <p>{{ body_desc | safe }}</p>
+
                             </div>
                             <a href="#contact-section" class="btn --btn-yellow js-scroll-to">neem contact op</a>
                         </div>
@@ -40,15 +61,14 @@
                                 <h2 data-aos="fade-up" data-aos-duration="500">Wat kan je van ons verwachten?</h2>
                             </div>
                             <div class="header-btns__btns btn-block" data-aos="fade-up" data-aos-duration="500">
-                                <a href="#" class="btn --btn-yellow-transparent">gratis analyse</a>
-                                <a href="#contact-section" class="btn --btn-yellow js-scroll-to">neem contact op</a>
+                                <a href="#contact-section" class="btn --btn-yellow-transparent js-scroll-to">neem contact op</a>
                             </div>
                         </div>
                         <div class="box-content__list">
                             {% for expectation in expectations %}
                                 <div class="box-content__item glass-box" data-aos="fade-up" data-aos-duration="500" data-aos-delay="0">
-                                    <h5 class="like-h5">{{ expectation.name }}</h5>
-                                    <p>{{ expectation.description | safe}}</p>
+                                    <h5 class="like-h5">{{ expectation.name | safe}}</h5>
+                                    <p>{{ expectation.description | safe }}</p>
                                 </div>
                             {% endfor %}
                         </div>
