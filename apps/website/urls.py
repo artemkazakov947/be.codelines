@@ -14,7 +14,9 @@ from apps.website.views import (
     CaseListView,
     CaseDetailView,
     web_application,
-    custom_website, mobile_apps,
+    custom_website,
+    mobile_apps,
+    home,
 )
 
 
@@ -38,6 +40,7 @@ urlpatterns = [
     path("webapplication/", web_application, name="web_application"),
     path("custom-website/", custom_website, name="custom_website"),
     path("mobile-apps/", mobile_apps, name="mobile-apps"),
+    path("home/", home, name="home")
 ]
 
 app_name = "website"
