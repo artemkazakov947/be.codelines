@@ -12,7 +12,7 @@ from apps.website.models import (
     Expectation,
     WebApp,
     WebSite,
-    MobileApp,
+    MobileApp, Product,
 )
 from base.mixins import BaseReadOnlyAdminMixin
 
@@ -26,9 +26,11 @@ admin.site.register(Service)
 admin.site.register(EmailForPostNotification)
 admin.site.register(Case)
 admin.site.register(Expectation)
+admin.site.register(Product)
 admin.site.register(WebApp)
 admin.site.register(WebSite)
 admin.site.register(MobileApp)
+
 
 @admin.register(RequestFromUser)
 class RequestFromUser(BaseReadOnlyAdminMixin, admin.ModelAdmin):

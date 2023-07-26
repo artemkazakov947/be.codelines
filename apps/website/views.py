@@ -135,7 +135,7 @@ class CaseDetailView(generic.DetailView):
 
 @request_from_user_form
 def web_application(request: Request):
-    webapp = WebApp.objects.all().first()
+    webapp = WebApp.objects.all().prefetch_related("expectation").first()
     two_cases = Case.get_two_random_obj()
     context = {
             "name": webapp.name,
@@ -149,7 +149,7 @@ def web_application(request: Request):
 
 @request_from_user_form
 def custom_website(request: Request) -> TemplateResponse:
-    website: WebSite = WebSite.objects.all().first()
+    website: WebSite = WebSite.objects.all().prefetch_related("expectation").first()
     case_1 = Case.get_two_random_obj()[1]
     two_cases = Case.get_two_random_obj()
     context = {
@@ -165,7 +165,7 @@ def custom_website(request: Request) -> TemplateResponse:
 
 @request_from_user_form
 def mobile_apps(request: Request) -> TemplateResponse:
-    mobile_app: MobileApp = MobileApp.objects.all().first()
+    mobile_app: MobileApp = MobileApp.objects.all().prefetch_related("expectation").first()
     case_1 = Case.get_two_random_obj()[1]
     two_cases = Case.get_two_random_obj()
     context = {
@@ -178,3 +178,16 @@ def mobile_apps(request: Request) -> TemplateResponse:
         "two_cases": two_cases
     }
     return TemplateResponse(request, "website/mobile_apps.html", context=context)
+
+
+@request_from_user_form
+def home(request):
+    cases = Case.objects.all()
+    two_cases = Case.get_two_random_obj()
+    posts = Post.objects.all()
+    context = {
+        "cases": cases,
+        "two_cases": two_cases,
+        "posts": posts,
+    }
+    return TemplateResponse(request, "website/home.html", context=context)
