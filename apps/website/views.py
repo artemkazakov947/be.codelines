@@ -1,6 +1,6 @@
 from urllib.request import Request
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse_lazy
 from django.views import generic
@@ -110,16 +110,17 @@ class RequestFromUserView(generic.FormView):
         referer_url = self.request.META.get("HTTP_REFERER")
         if referer_url:
             return referer_url
-        return super().get_success_url()
+        return reverse_lazy("website:home")
 
 
-class CaseListView(RequestFromUserMixin, generic.ListView):
+class CaseListView(generic.ListView):
     model = Case
     queryset = Case.objects.all()
     paginate_by = 6
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=None, **kwargs)
+        context["form"] = RequestFromUserForm()
         return context
 
 
