@@ -1,9 +1,11 @@
+from unittest.mock import patch
+
 from django.template.defaultfilters import slugify
 from django.test import TestCase
 from django.urls import reverse
 
 from apps.website.forms import EmailPostNotificationForm, RequestFromUserForm
-from apps.website.models import Role, Employee, Job, Skill, Case, EmailForPostNotification, RequestFromUser
+from apps.website.models import Role, Employee, Job, Skill, Case, EmailForPostNotification, RequestFromUser, Post
 
 
 class TestModel(TestCase):
@@ -42,6 +44,32 @@ class TestModel(TestCase):
             )
 
         self.assertEqual(len(Case.get_two_random_obj()), 2)
+
+    def test_send_users_request_to_admin_called(self):
+        form_data = {
+            "full_name": "Test Full",
+            "email": "test@test.com",
+            "phone_number": "+32479269534",
+            "question": "Test question",
+        }
+
+        with patch.object(RequestFromUser, "send_users_request_to_admin") as mocked_email:
+            RequestFromUser.objects.create(**form_data)
+            mocked_email.assert_called()
+
+    def test_new_post_notification_called(self):
+        form_data = {
+            "title": "Test title",
+            "content": "test content",
+            "time_to_read": 5,
+        }
+        with patch.object(Post, "send_new_post_notification") as mocked_email:
+            new_post = Post.objects.create(**form_data)
+            mocked_email.assert_called()
+
+            self.assertEqual(new_post.title, form_data["title"])
+            self.assertEqual(new_post.content, form_data["content"])
+            self.assertEqual(new_post.time_to_read, form_data["time_to_read"])
 
 
 class TestForm(TestCase):
@@ -83,14 +111,16 @@ class TestView(TestCase):
         form_data = {
             "full_name": "Test Full",
             "email": "test@test.com",
-            "phone_number": "+32479269sdc534",
+            "phone_number": "+32479269534",
             "question": "Test question",
-            "privacy": True
         }
 
         response = self.client.post(reverse("website:request-from-user"), data=form_data)
         new_question = RequestFromUser.objects.filter(email=form_data["email"])
 
+        # with open("tmp.txt", "w") as resp_file:
+        #     for line in response.content.decode().splitlines():
+        #         resp_file.write(line + "\n")
         self.assertTrue(new_question.exists())
         self.assertEqual(response.status_code, 302)
 
@@ -100,3 +130,5 @@ class TestView(TestCase):
         self.assertEqual(new_question.email, form_data["email"])
         self.assertEqual(new_question.phone_number, form_data["phone_number"])
         self.assertEqual(new_question.question, form_data["question"])
+
+
