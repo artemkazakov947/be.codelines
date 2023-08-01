@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}Blog{% endblock %}
+{% block content %}
+    <section class="blog-highlight">
+                <div class="container">
+                    <div class="blog-highlight__header">
+                        <h1 class="subtitle">Onze blog</h1>
+                    </div>
+                    <div class="blog-highlight__list">
+                        {% for post in post_list|slice:":3" %}
+                            <a href="{{ post.get_absolute_url }}" class="blog-highlight__item blog-card">
+                                <div class="blog-highlight__item-img">
+                                    <img src="/config/static/images/blog-highlight__item-img.jpg" alt="">
+                                </div>
+                                <div class="blog-highlight__item-content">
+                                    <div class="blog-highlight__item-title">
+                                        <h3 class="like-h2 decoration-hover">{{ post.title}}</h3>
+                                    </div>
+                                    <div class="blog-highlight__item-info">
+                                        <div class="blog-card__cat-list">
+                                            {% for tag in post.tag.all %}
+                                                <div class="blog-card__cat-item">{{ tag }}</div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="blog-card__date">{{ post.created }} • {{ post.time_to_read }} min leestijd</div>
+                                    </div>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+
+            <section class="subscribe">
+                <div class="container">
+                    <div class="subscribe__inner bg-ellipse9">
+                        <div class="subscribe__header">
+                            <h2>Wil jij op de hoogte blijven van al onze digitaal gerelateerde artikels?</h2>
+                        </div>
+                        <div class="subscribe__form">
+                            <form action="{% url 'website:email-notification' %}" method="post">
+                                <div class="form-row">
+                                    <label for="subscribe-mail">Ja! Schrijf mij in op</label>
+                                    <div class="form-row__field form-row__mail">
+                                        {% csrf_token %}
+                                        {{ form_email.email }}
+                                    </div>
+                                    <span class="dot">.</span>
+                                    <button type="submit" aria-label="submit" class="btn --btn-arrow"></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+            </section>
+
+            <section class="blog-overview">
+                <div class="container">
+                    <ul class="blog-overview__filter">
+                        <li><a href="{% url 'website:post-list' %}">Alles</a></li>
+                        {% for tag in tags %}
+                            <li><a href="{% url 'website:post-list' %}?tags={{ tag.name }}">{{ tag.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                    <div class="blog-overview__list">
+                        {% for post in post_list %}
+                            <a href="{{ post.get_absolute_url }}" class="blog-overview__item blog-card">
+
+                            <div class="blog-card__cat-list">
+                               {% for tag in post.tag.all %}
+                                    <div class="blog-card__cat-item">{{ tag }}</div>
+                               {% endfor %}
+                            </div>
+                            <div class="blog-overview__item-title">
+                                <h3 class="like-h4 decoration-hover">{{ post.title }}</h3>
+                            </div>
+                                <div class="blog-card__date">{{ post.created }} • {{ post.time_to_read }} min leestijd</div>
+
+                            </a>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </section>
+
+            <section class="contact-section bg-bottom">
+                {% include "includes/contact-section.html" %}
+            </section>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="logo"><a href="{% url 'website:home' %}" aria-label="Codelines"><img src="/config/static/assets/images/Codelines.svg" alt=""></a></div>
+    <div id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <nav class="header-nav">
+        <ul class="main-menu --left">
+            <li class="active"><a href="{% url 'website:web_application' %}">webapplicaties</a></li>
+            <li><a href="{% url 'website:mobile-apps' %}">mobiele apps</a></li>
+            <li><a href="{% url 'website:custom_website' %}">maatwerk websites</a></li>
+        </ul>
+        <ul class="main-menu --right">
+            <li class="active"><a href="{% url 'website:case-list' %}">cases</a></li>
+            <li><a href="{% url 'website:service-list' %}">diensten</a></li>
+            <li><a href="{% url 'website:post-list' %}">blog</a></li>
+            <li><a href="{% url 'website:over-ons' %}">over ons</a></li>
+            <li><a href="{% url 'website:job-list' %}">jobs</a></li>
+        </ul>
+        <a href="{% url 'website:contact_page' %}" class="header-nav__btn btn --btn-yellow">contact</a>
+    </nav>
+</div>
+
+<div id="menu-overlay" class="overlay"></div>

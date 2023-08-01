@@ -1,0 +1,267 @@
+{% extends "base.html" %}
+{% block page_wrapper %}home-page{% endblock %}
+{% block title %}Home{% endblock %}
+{% block content %}
+    <section class="showcase bg-ellipse1">
+                <div class="showcase__inner">
+                    <div class="container">
+                        <div class="showcase__content">
+                            <div class="showcase__title">
+                                <h1>Wij ontwikkelen <span class="yellow">applicaties op maat</span> die tijd en geld besparen</h1>
+                            </div>
+                            <div class="showcase__desc">
+                                <p>Tijd en geld besparen met maatwerk digitale producten? We helpen je processen te automatiseren en efficiënter te werken.</p>
+                            </div>
+                            <a href="#offer" class="read-more-line js-scroll-to">je vraagt je af ‘hoe?’</a>
+                        </div>
+                    </div>
+                    <div class="showcase__slider">
+                        <div class="showcase__slider-list --flex-slider js-showcase">
+                            {% for case in cases %}
+
+                                <div class="showcase__slider-item">
+                                    <a href="{{ case.get_absolute_url }}"><img src="{{ case.cover.url }}" alt=""></a>
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="sticky-wrapper">
+                <section id="offer" class="offer sticky-wrapper__sticky-content">
+                    <div class="container">
+                        <div class="offer__inner">
+                            <div class="offer__header">
+                                <h3 class="subtitle" data-aos="fade-up" data-aos-duration="500">Ons aanbod</h3>
+                                <h2 data-aos="fade-up" data-aos-duration="500">Wat we graag maken</h2>
+                                <div class="desc" data-aos="fade-up" data-aos-duration="500">
+                                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam.</p>
+                                </div>
+                            </div>
+                            <div class="offer__list">
+
+                                <div class="offer__item" data-aos="fade-up" data-aos-duration="500" data-aos-delay="0">
+                                    <a href="{% url 'website:web_application' %}" class="offer__item-inner glass-box">
+                                        <div class="offer__item-icon">
+                                            <img src="/config/static/images/offer__item-icon-1.png" alt="">
+                                        </div>
+                                        <h4 class="like-h5">Webapplicaties</h4>
+                                        <div class="offer__item-desc">Ben jij op zoek naar een tool om je bedrijfsprocessen te optimaliseren? Verlies jij uren tijd met herhalende en tijdrovende taken. Een webapplicatie op maat van jouw bedrijf is de oplossing!</div>
+                                        <span class="read-more --yellow">ontwikkelen van efficiënte processen</span>
+                                    </a>
+                                </div>
+
+                                <div class="offer__item" data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">
+                                    <a href="{% url 'website:mobile-apps' %}" class="offer__item-inner glass-box">
+                                        <div class="offer__item-icon">
+                                            <img src="/config/static/images/offer__item-icon-2.png" alt="">
+                                        </div>
+                                        <h4 class="like-h5">Mobiele apps</h4>
+                                        <div class="offer__item-desc">Jouw bedrijfsprocessen eenvoudig en efficiënt in een handomdraai? Een mobiele app kan hier de oplossing bieden! Van tijdsregistratie tot een bookingstool, er zijn talloze mogelijkheden.</div>
+                                        <span class="read-more --yellow">automatisering bij de hand</span>
+                                    </a>
+                                </div>
+
+                                <div class="offer__item" data-aos="fade-up" data-aos-duration="500" data-aos-delay="200">
+                                    <a href="{% url 'website:custom_website' %}" class="offer__item-inner glass-box">
+                                        <div class="offer__item-icon">
+                                            <img src="/config/static/images/offer__item-icon-3.png" alt="">
+                                        </div>
+                                        <h4 class="like-h5">Maatwerk websites</h4>
+                                        <div class="offer__item-desc">Ben je op zoek naar een unieke website, wil je eruit springen tegenover talloze andere websites, wil je graag zelf je website in handen nemen en zelf content kunnen aanpassen? Wij helpen je verder!</div>
+                                        <span class="read-more --yellow">starten met een goede online aanwezigheid</span>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="teaser sticky-wrapper__scroll-content bg-ellipse2 bg-ellipse3">
+                    <div class="container">
+                        <div class="teaser__header">
+                            <h3 class="subtitle" data-aos="fade-up" data-aos-duration="500">Wil jij ook vooruit?</h3>
+                            <h2 data-aos="fade-up" data-aos-duration="500">Op zoek naar manieren om je bedrijf te optimaliseren en te digitaliseren?</h2>
+                        </div>
+                        <div class="teaser__inner --grid">
+                            <div class="teaser__left" data-aos="fade-up" data-aos-duration="500">
+
+                                <a href="{{ cases.0.get_absolute_url }}" class="cases-card">
+                                    <div class="cases-card__img">
+                                        <img src="{{ cases.0.cover.url }}" alt="">
+                                    </div>
+                                    <div class="cases-card__content">
+                                        <div class="cases-card__top">
+                                            <div class="cases-card__label">{{ cases.0.name }}</div>
+                                            <span class="read-more --white">bekijk case</span>
+                                        </div>
+                                        <div class="cases-card__bottom">
+                                            <span class="read-more --white">naam van case</span>
+                                            <div class="cases-card__desc">Een tot twee lijnen over deze case met korte intro over wat het is</div>
+                                        </div>
+                                    </div>
+                                </a>
+
+                            </div>
+                            <div class="teaser__right" data-aos="fade-up" data-aos-duration="500">
+                                <div class="teaser__content">
+                                    <div class="--content">
+                                        <p>Codelines is jouw aanspreekpunt voor <strong>softwareontwikkeling op maat</strong>. Samen bekijken we welke digitale oplossingen het beste passen bij jouw unieke bedrijfssituatie. Wij hebben alle tools en programma’s in huis om jouw bedrijfsprocessen te automatiseren.</p>
+                                        <p>Jij maakt een investering om op langere termijn tijd en geld te besparen. Als kleinschalig bedrijf bieden wij je de beste persoonlijke service zodat je deze investering zo snel mogelijk kan laten renderen.</p>
+                                        <p>Concreet kan je bij ons je mobiele en web app, API-koppeling, professionele webshop of e-commerce website laten maken.</p>
+                                        <p>Codelines begeleidt je tijdens het volledige traject, van het ontwerp tot de opvolging. <strong>Wij denken mee, ontwikkelen en implementeren</strong>.</p>
+                                        <p><strong>Codelines helpt je bij het ontwerpen van een intuïtieve automatisatie.</strong></p>
+                                    </div>
+                                    <a href="{% url 'website:contact_page' %}" class="btn --btn-yellow">neem contact op</a>
+                                </div>
+                            </div>
+                        </div>
+                </section>
+            </div>
+
+            <section class="projects">
+                <div class="container">
+                    <div class="projects__header">
+                        <h3 class="subtitle" data-aos="fade-up" data-aos-duration="500">Onze cases</h3>
+                        <h2 data-aos="fade-up" data-aos-duration="500">Iedereen wil graag vooruit <br>Wij hebben er al een aantal hiermee geholpen</h2>
+                        <a href="{% url 'website:case-list' %}" class="btn --btn-yellow-transparent">bekijk al onze cases</a>
+                    </div>
+                </div>
+                <div class="projects__list">
+                    <div class="projects__wrap">
+                        <div class="projects__list-row js-project-row-1">
+                            <div class="projects__list-item glass-box">
+                                <img src="/config/static/images/projects-logo/projects-logo-1.png" alt="">
+                            </div>
+                            <div class="projects__list-item glass-box">
+                                <img src="/config/static/images/projects-logo/projects-logo-2.svg" alt="">
+                            </div>
+                            <div class="projects__list-item glass-box">
+                                <img src="/config/static/images/projects-logo/projects-logo-3.svg" alt="">
+                            </div>
+                            <div class="projects__list-item glass-box">
+                                <img src="/config/static/images/projects-logo/projects-logo-4.svg" alt="">
+                            </div>
+                            <div class="projects__list-item glass-box">
+                                <img src="/config/static/images/projects-logo/projects-logo-5.svg" alt="">
+                            </div>
+                            <div class="projects__list-item glass-box">
+                                <img src="/config/static/images/projects-logo/projects-logo-6.png" alt="">
+                            </div>
+                            <div class="projects__list-item glass-box">
+                                <img src="/config/static/images/projects-logo/projects-logo-1.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="projects__wrap">
+                        <div class="projects__list-row js-project-row-2">
+                        <div class="projects__list-item glass-box">
+                            <img src="/config/static/images/projects-logo/projects-logo-4.svg" alt="">
+                        </div>
+                        <div class="projects__list-item glass-box">
+                            <img src="/config/static/images/projects-logo/projects-logo-5.svg" alt="">
+                        </div>
+                        <div class="projects__list-item glass-box">
+                            <img src="/config/static/images/projects-logo/projects-logo-3.svg" alt="">
+                        </div>
+                        <div class="projects__list-item glass-box">
+                            <img src="/config/static/images/projects-logo/projects-logo-1.png" alt="">
+                        </div>
+                        <div class="projects__list-item glass-box">
+                            <img src="/config/static/images/projects-logo/projects-logo-2.svg" alt="">
+                        </div>
+                        <div class="projects__list-item glass-box">
+                            <img src="/config/static/images/projects-logo/projects-logo-6.png" alt="">
+                        </div>
+                        <div class="projects__list-item glass-box">
+                            <img src="/config/static/images/projects-logo/projects-logo-1.png" alt="">
+                        </div>
+                        <div class="projects__list-item glass-box">
+                            <img src="/config/static/images/projects-logo/projects-logo-1.png" alt="">
+                        </div>
+                        <div class="projects__list-item glass-box">
+                            <img src="/config/static/images/projects-logo/projects-logo-1.png" alt="">
+                        </div>
+                        <div class="projects__list-item glass-box">
+                            <img src="/config/static/images/projects-logo/projects-logo-1.png" alt="">
+                        </div>
+                        <div class="projects__list-item glass-box">
+                            <img src="/config/static/images/projects-logo/projects-logo-1.png" alt="">
+                        </div>
+                        <div class="projects__list-item glass-box">
+                            <img src="/config/static/images/projects-logo/projects-logo-1.png" alt="">
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="two-cases bg-ellipse4">
+                <div class="container">
+                    <div class="two-cases__header --text-center">
+                        <h2 data-aos="fade-up" data-aos-duration="500">Projecten waar we graag mee uitpakken</h2>
+                    </div>
+                    <div class="cases-list">
+                        {% for case in two_cases %}
+                            <div class="cases-list-item" data-aos="fade-up" data-aos-duration="500">
+                                <a href="{{ case.get_absolute_url }}" class="cases-card">
+                                    <div class="cases-card__img">
+                                        <img src="{{ case.cover.url }}" alt="">
+                                    </div>
+                                    <div class="cases-card__content">
+                                        <div class="cases-card__top">
+                                            <div class="cases-card__label">mobiele app</div>
+                                            <span class="read-more --white">bekijk case</span>
+                                        </div>
+                                        <div class="cases-card__bottom">
+                                            <span class="read-more --white">{{ case.name }}</span>
+                                            <div class="cases-card__desc">Een tot twee lijnen over deze case met korte intro over wat het is</div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+
+            <div class="sticky-wrapper">
+                <section class="blog --full-grid sticky-wrapper__sticky-content">
+                    <div class="blog__header">
+                        <div class="blog__header-left">
+                            <h3 class="subtitle" data-aos="fade-up" data-aos-duration="500">Onze blog</h3>
+                            <h2 data-aos="fade-up" data-aos-duration="500">Leer van onze experts</h2>
+                        </div>
+                        <div class="blog__slider-nav slider-nav js-blog-slider-nav"></div>
+                    </div>
+                    <div class="blog__slider js-blog-slider">
+                    {% for post in posts %}
+
+                        <a href="{{ post.get_absolute_url }}" class="blog__slider-item blog-card">
+                            <div class="blog__slider-item-img">
+                                <img src="/config/static/images/blog__slider-item-img-1.jpg" alt="">
+                            </div>
+                            <div class="blog__slider-item-content">
+                                <div class="blog-card__cat-list">
+                                    {% for tag in post.tags.all %}
+                                        <div class="blog-card__cat-item">{{ tag.name }}</div>
+                                    {% endfor %}
+                                </div>
+                                <h4 class="like-h4">{{ post.title }}</h4>
+                                <div class="blog-card__date">{{ post.created }} • {{ post.time_to_read }} min leestijd</div>
+                            </div>
+                        </a>
+
+                    {% endfor %}
+                    </div>
+                    <a href="{% url 'website:post-list' %}" class="btn --btn-yellow-transparent">bekijk al onze blogs</a>
+                </section>
+
+                <section class="contact-section bg-bottom sticky-wrapper__scroll-content">
+                    {% include "includes/contact-section.html" %}
+                </section>
+{% endblock %}

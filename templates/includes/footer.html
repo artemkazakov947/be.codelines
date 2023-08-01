@@ -1,0 +1,73 @@
+<div class="container">
+    <div class="footer__top">
+        <div class="footer__row">
+
+            <div class="footer__col --contact">
+                <div class="footer__logo">
+                    <img src="/config/static/assets/images/f-logo.svg" alt="codelines">
+                </div>
+                <div class="footer__contact contact-info">
+
+                    <div class="contact-info__row">
+                        <span>e.</span>
+                        <a href="mailto:hello@codelines.be">hello@codelines.be</a>
+                    </div>
+
+                    <div class="contact-info__row">
+                        <span>t.</span>
+                        <a href="tel:+3235359511">03 535 95 11</a>
+                    </div>
+
+                    <div class="contact-info__row">
+                        <span>a.</span>
+                        <address>Bisschoppenhoflaan 400 <br>2100 Antwerpen</address>
+                    </div>
+
+                    <div class="contact-info__soc">
+                        <a href="https://be.linkedin.com/company/codelines-antwerpen?trk=similar-pages" target="_blank" rel="noopener noreferrer" aria-label="linkedin">
+                            <img src="/config/static/assets/images/soc-linkedin.svg" alt="">
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="footer__col --menu">
+                <h5 class="like-h6">Ons aanbod</h5>
+                <ul>
+                    <li><a href="{% url 'website:web_application' %}">webapplicaties</a></li>
+                    <li><a href="{% url 'website:mobile-apps' %}">mobiele apps</a></li>
+                    <li><a href="{% url 'website:custom_website' %}">maatwerk website</a></li>
+                </ul>
+            </div>
+
+            <div class="footer__col --menu">
+                <h5 class="like-h6">Onze diensten</h5>
+                <ul>
+                    <li><a href="{% url 'website:service-list' %}">ui en ux design</a></li>
+                    <li><a href="{% url 'website:service-list' %}">development</a></li>
+                    <li><a href="{% url 'website:service-list' %}">e-commerce</a></li>
+                    <li><a href="{% url 'website:service-list' %}">api-koppelingen & ontwikkeling</a></li>
+                </ul>
+            </div>
+
+            <div class="footer__col --menu">
+                <h5 class="like-h6">Codelines</h5>
+                <ul>
+                    <li><a href="{% url 'website:case-list' %}">cases</a></li>
+                    <li><a href="{% url 'website:post-list' %}">blog</a></li>
+                    <li><a href="{% url 'website:over-ons' %}">over ons</a></li>
+                    <li><a href="{% url 'website:job-list' %}">jobs</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <div class="footer__bottom">
+        <div>© 2023 codelines</div>
+        <ul>
+            <li><a href="{% url 'website:cookie' %}">privacypolicy</a></li>
+            <li><a href="{% url 'website:cookie' %}">cookie statement</a></li>
+        </ul>
+    </div>
+</div>

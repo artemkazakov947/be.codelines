@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}Contact{% endblock %}
+{% block page_wrapper %}contact-page{% endblock %}
+{% block content %}
+    <section class="contact bg-bottom --full-grid">
+                <div class="contact__left">
+                    <div class="contact__header">
+                        <h2 class="subtitle">Contact</h2>
+                        <h1>Let’s connect</h1>
+                        <div class="desc">
+                            <p>Heb je een nieuw concept in gedachten, wil je jouw huidige website een update geven of wil je graag een professionele mening over wat je mogelijkheden zijn. Wat het ook is, wij helpen je met veel plezier verder! </p>
+                        </div>
+                    </div>
+                    <div class="contact-info">
+
+                        <div class="contact-info__row">
+                            <span>e.</span>
+                            <a href="mailto:hello@codelines.be">hello@codelines.be</a>
+                        </div>
+
+                        <div class="contact-info__row">
+                            <span>t.</span>
+                            <a href="tel:+3235359511">03 535 95 11</a>
+                        </div>
+
+                        <div class="contact-info__row">
+                            <span>a.</span>
+                            <address>Bisschoppenhoflaan 400 <br>2100 Antwerpen</address>
+                        </div>
+
+                        <div class="contact-info__soc">
+                            <a href="https://be.linkedin.com/company/codelines-antwerpen?trk=similar-pages" target="_blank" rel="noopener noreferrer" aria-label="linkedin">
+                                <img src="../assets/images/soc-linkedin.svg" alt="">
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="contact__right">
+                     <form action="{% url 'website:request-from-user' %}" method="post">
+
+                <div class="form-row">
+                    <label for="formfield-1">Hallo, ik ben</label>
+                    <div class="form-row__field form-row__name">
+                        {% csrf_token %}
+                        {{ form.full_name }}
+                    </div>
+                    <span class="dot">.</span>
+                </div>
+
+                <div class="form-row">
+                    <label for="formfield-2">Je kan mij bereiken via</label>
+                    <div class="form-row__field form-row__mail">
+                        {% csrf_token %}
+                        {{ form.email }}
+                    </div>
+                    <label for="formfield-3">of</label>
+                    <div class="form-row__field form-row__tel">
+                        {% csrf_token %}
+                        {{ form.phone_number }}
+                    </div>
+                    <span class="dot">.</span>
+                </div>
+
+                <div class="form-row">
+                    <label for="formfield-4">Ik zou graag meer informatie hebben over </label>
+                    <div class="form-row__field form-row__msg">
+                        {% csrf_token %}
+                        {{ form.question }}
+                    </div>
+                    <span class="dot">.</span>
+                </div>
+
+                <div class="form-row-privacy">
+                    <input type="checkbox" name="privacy" id="formfield-5" value="" required="">
+                    <label for="formfield-5">Ik ga akkoord met de <a href="#">privacy policy</a>.</label>
+                </div>
+
+                <div class="form-row-submit">
+                    <button type="submit" class="btn">verstuur vraag</button>
+                </div>
+
+            </form>
+                </div>
+            </section>
+{% endblock %}

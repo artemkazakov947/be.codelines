@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Jobs{% endblock %}
+{% block page_wrapper %}jobs-page{% endblock %}
+{% block content %}
+    <section class="header-page">
+                <div class="container">
+                    <div class="header-page__inner --grid">
+                        <div class="header-page__img">
+                            <img src="/config/static/images/header-page__jobs.jpg" alt="">
+                        </div>
+                        <div class="header-page__content">
+                            <h2 class="subtitle">Jobs</h2>
+                            <h1>Ben jij de volgende codeliner?</h1>
+                            <div class="desc">
+                                <p>Wij zijn Codelines, een klein maar ambitieus digitaal bureau dat gespecialiseerd is in het leveren van op maat gemaakte software-oplossingen voor onze klanten. Wij zijn momenteel op zoek naar getalenteerde en gepassioneerde ontwikkelaars om ons team te versterken en samen te werken aan uitdagende projecten. Als je geïnteresseerd bent in het werken bij een bedrijf dat zich richt op innovatie en kwaliteit, dan nodigen we je uit om te solliciteren op onze openstaande vacatures.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="jobs bg-bottom">
+                <div class="container">
+                    <div class="jobs__inner">
+                        <div class="jobs__list">
+
+                            {% for job in job_list %}
+
+                                <article class="jobs__item">
+                                    <div class="jobs__item-icon">
+                                        <img src="/config/static/assets/images/jobs__item-icon-1.png" alt="">
+                                    </div>
+                                    <div class="jobs__item-content">
+                                        <a href="{{ job.get_absolute_url }}">
+                                            <h3 class="like-h4 decoration-hover --decoration-hover-dark">{{ job.name }}</h3>
+                                        </a>
+                                        <div class="jobs__item-desc">{{ job.description }}.</div>
+                                        <a href="{{ job.get_absolute_url }}" class="read-more-line">Solliciteer nu</a>
+                                    </div>
+                                </article>
+
+                            {% endfor %}
+
+                            <article class="jobs__item">
+                                <div class="jobs__item-icon">
+                                    <img src="/config/static/assets/images/jobs__item-icon-2.png" alt="">
+                                </div>
+                                <div class="jobs__item-content">
+                                    <a href="{% url 'website:contact_page' %}">
+                                        <h3 class="like-h4 decoration-hover --decoration-hover-dark">Open sollicitatie</h3>
+                                    </a>
+                                    <div class="jobs__item-desc">Ben jij een meerwaarde voor ons team, maar weten wij dat zelf nog niet? Neem snel contact op, dan bekijken we of er een match is!</div>
+                                    <a href="{% url 'website:contact_page' %}" class="read-more-line">Solliciteer nu</a>
+                                </div>
+                            </article>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Cases{% endblock %}
+{% block content %}
+    <section class="cases">
+                <div class="container">
+                    <div class="cases__header --text-center">
+                        <h3 class="subtitle">Cases</h3>
+                        <h1>Succesvolle cases waar we trots op zijn</h1>
+                    </div>
+                    <div class="cases-list">
+                        {% for case in case_list %}
+                            <div class="cases-list-item" data-aos="fade-up" data-aos-duration="500">
+                                <a href="{{ case.get_absolute_url }}" class="cases-card">
+                                    <div class="cases-card__img">
+                                        <img src="{{ case.cover.url }}">
+                                    </div>
+                                    <div class="cases-card__content">
+                                        <div class="cases-card__top">
+                                            <div class="cases-card__label">mobiele app</div>
+                                            <span class="read-more --white">bekijk case</span>
+                                        </div>
+                                        <div class="cases-card__bottom">
+                                            <span class="read-more --white">{{ case.name }}</span>
+                                            <div class="cases-card__desc">Een tot twee lijnen over deze case met korte intro over wat het is</div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                </div>
+            </section>
+
+            <section class="contact-section bg-bottom">
+                {% include "includes/contact-section.html" %}
+            </section>
+{% endblock %}
