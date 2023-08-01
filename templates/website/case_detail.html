@@ -24,11 +24,11 @@
                     <div id="cases-content" class="cases-item__content">
                         <div class="cases-item__content-col --content">
                             <h5>Briefing</h5>
-                            {{ case.briefing }}
+                            {{ case.briefing | safe }}
                         </div>
                         <div class="cases-item__content-col --content">
                             <h5>Resultaat</h5>
-                            {{ case.result }}
+                            {{ case.result | safe }}
                         </div>
                     </div>
 
