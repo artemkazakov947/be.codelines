@@ -1,13 +1,22 @@
 from urllib.request import Request
 
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404
 from django.template.response import TemplateResponse
 from django.urls import reverse_lazy
 from django.views import generic
 from taggit.models import Tag
 
 from apps.website.forms import EmailPostNotificationForm, RequestFromUserForm
-from apps.website.models import Employee, Job, Post, Service, Case, WebApp, WebSite, MobileApp
+from apps.website.models import (
+    Employee,
+    Job,
+    Post,
+    Service,
+    Case,
+    WebApp,
+    WebSite,
+    MobileApp,
+)
 from base.decorators import request_from_user_form
 from base.mixins import RequestFromUserMixin
 
@@ -113,14 +122,13 @@ class RequestFromUserView(generic.FormView):
         return reverse_lazy("website:home")
 
 
-class CaseListView(generic.ListView):
+class CaseListView(RequestFromUserMixin, generic.ListView):
     model = Case
     queryset = Case.objects.all()
     paginate_by = 6
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=None, **kwargs)
-        context["form"] = RequestFromUserForm()
         return context
 
 
@@ -135,16 +143,16 @@ class CaseDetailView(generic.DetailView):
 
 
 @request_from_user_form
-def web_application(request: Request):
+def web_application(request: Request) -> TemplateResponse:
     webapp = WebApp.objects.all().prefetch_related("expectation").first()
     two_cases = Case.get_two_random_obj()
     context = {
-            "name": webapp.name,
-            "header_desc": webapp.header,
-            "body_desc": webapp.description,
-            "expectations": webapp.expectation.all(),
-            "two_cases": two_cases
-        }
+        "name": webapp.name,
+        "header_desc": webapp.header,
+        "body_desc": webapp.description,
+        "expectations": webapp.expectation.all(),
+        "two_cases": two_cases,
+    }
     return TemplateResponse(request, "website/web_application.html", context=context)
 
 
@@ -159,14 +167,16 @@ def custom_website(request: Request) -> TemplateResponse:
         "body_desc": website.description,
         "expectations": website.expectation.all(),
         "case_1": case_1,
-        "two_cases": two_cases
+        "two_cases": two_cases,
     }
     return TemplateResponse(request, "website/custom_website.html", context=context)
 
 
 @request_from_user_form
 def mobile_apps(request: Request) -> TemplateResponse:
-    mobile_app: MobileApp = MobileApp.objects.all().prefetch_related("expectation").first()
+    mobile_app: MobileApp = (
+        MobileApp.objects.all().prefetch_related("expectation").first()
+    )
     case_1 = Case.get_two_random_obj()[1]
     two_cases = Case.get_two_random_obj()
     context = {
@@ -176,13 +186,13 @@ def mobile_apps(request: Request) -> TemplateResponse:
         "expectations": mobile_app.expectation.all(),
         "expect_desc": mobile_app.expect_desc,
         "case_1": case_1,
-        "two_cases": two_cases
+        "two_cases": two_cases,
     }
     return TemplateResponse(request, "website/mobile_apps.html", context=context)
 
 
 @request_from_user_form
-def home(request):
+def home(request: Request) -> TemplateResponse:
     cases = Case.objects.all()
     two_cases = Case.get_two_random_obj()
     posts = Post.objects.all()

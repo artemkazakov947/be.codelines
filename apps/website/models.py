@@ -210,7 +210,7 @@ class Case(models.Model):
     @staticmethod
     def get_two_random_obj():
         two_cases = []
-        max_id = Case.objects.all().aggregate(max_id=Max("id"))['max_id']
+        max_id = Case.objects.all().aggregate(max_id=Max("id"))["max_id"]
         while len(two_cases) < 2:
             pk = random.randint(1, max_id)
             case = Case.objects.filter(pk=pk).first()

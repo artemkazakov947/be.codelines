@@ -40,7 +40,7 @@ urlpatterns = [
     path("webapplication/", web_application, name="web_application"),
     path("custom-website/", custom_website, name="custom_website"),
     path("mobile-apps/", mobile_apps, name="mobile-apps"),
-    path("home/", home, name="home")
+    path("home/", home, name="home"),
 ]
 
 app_name = "website"
