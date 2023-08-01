@@ -5,7 +5,16 @@ from django.test import TestCase
 from django.urls import reverse
 
 from apps.website.forms import EmailPostNotificationForm, RequestFromUserForm
-from apps.website.models import Role, Employee, Job, Skill, Case, EmailForPostNotification, RequestFromUser, Post
+from apps.website.models import (
+    Role,
+    Employee,
+    Job,
+    Skill,
+    Case,
+    EmailForPostNotification,
+    RequestFromUser,
+    Post,
+)
 
 
 class TestModel(TestCase):
@@ -20,14 +29,14 @@ class TestModel(TestCase):
             role=role,
         )
 
-        self.assertEqual(str(employee), f"{employee.first_name} {employee.last_name} ({employee.role.name})")
+        self.assertEqual(
+            str(employee),
+            f"{employee.first_name} {employee.last_name} ({employee.role.name})",
+        )
 
     def test_get_absolute_url_for_job(self):
         skill = Skill.objects.create(name="test_skill")
-        job = Job.objects.create(
-            name="Test_name",
-            description="Test description"
-        )
+        job = Job.objects.create(name="Test_name", description="Test description")
         job.skill.add(skill)
         slug_name = slugify(job.name)
 
@@ -53,7 +62,9 @@ class TestModel(TestCase):
             "question": "Test question",
         }
 
-        with patch.object(RequestFromUser, "send_users_request_to_admin") as mocked_email:
+        with patch.object(
+            RequestFromUser, "send_users_request_to_admin"
+        ) as mocked_email:
             RequestFromUser.objects.create(**form_data)
             mocked_email.assert_called()
 
@@ -74,9 +85,7 @@ class TestModel(TestCase):
 
 class TestForm(TestCase):
     def test_email_post_notification(self):
-        form_data = {
-            "email": "test@test.com"
-        }
+        form_data = {"email": "test@test.com"}
         form = EmailPostNotificationForm(data=form_data)
 
         self.assertTrue(form.is_valid())
@@ -87,7 +96,7 @@ class TestForm(TestCase):
             "full_name": "Test Full",
             "email": "test@test.com",
             "phone_number": "+380506152456",
-            "question": "Test question"
+            "question": "Test question",
         }
         form = RequestFromUserForm(data=form_data)
 
@@ -96,15 +105,14 @@ class TestForm(TestCase):
 
 
 class TestView(TestCase):
-
     def test_create_email_for_post_notification(self):
-        form_data = {
-            "email": "test@test.com"
-        }
+        form_data = {"email": "test@test.com"}
         self.client.post(reverse("website:email-notification"), data=form_data)
         new_email = EmailForPostNotification.objects.get(email=form_data["email"])
 
-        self.assertTrue(EmailForPostNotification.objects.filter(email=new_email.email).exists())
+        self.assertTrue(
+            EmailForPostNotification.objects.filter(email=new_email.email).exists()
+        )
         self.assertEqual(new_email.email, form_data["email"])
 
     def test_create_request_from_user(self):
@@ -115,7 +123,9 @@ class TestView(TestCase):
             "question": "Test question",
         }
 
-        response = self.client.post(reverse("website:request-from-user"), data=form_data)
+        response = self.client.post(
+            reverse("website:request-from-user"), data=form_data
+        )
         new_question = RequestFromUser.objects.filter(email=form_data["email"])
 
         # with open("tmp.txt", "w") as resp_file:
@@ -130,5 +140,3 @@ class TestView(TestCase):
         self.assertEqual(new_question.email, form_data["email"])
         self.assertEqual(new_question.phone_number, form_data["phone_number"])
         self.assertEqual(new_question.question, form_data["question"])
-
-

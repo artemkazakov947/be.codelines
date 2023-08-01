@@ -12,7 +12,8 @@ from apps.website.models import (
     Expectation,
     WebApp,
     WebSite,
-    MobileApp, Product,
+    MobileApp,
+    Product,
 )
 from base.mixins import BaseReadOnlyAdminMixin
 
